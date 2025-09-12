@@ -15,6 +15,7 @@ const buildServer = async () => {
             })
             .register(autoLoad, {
                 dir: path.join(__dirname, '../plugins/kafka'),
+                ignorePattern: 'consumer.plugin.js'
             });
 
         return Fastify;
