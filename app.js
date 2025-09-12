@@ -18,7 +18,10 @@ const buildServer = async () => {
                 dir: path.join(__dirname, 'routes'),
             })
             .register(autoLoad, {
-                dir: path.join(__dirname, 'plugins'),
+                dir: path.join(__dirname, 'plugins/general'),
+            })
+            .register(autoLoad, {
+                dir: path.join(__dirname, 'plugins/kafka'),
             });
 
         const serverOptions = {
