@@ -8,7 +8,9 @@ const buildServer = async () => {
     let Fastify;
     try {
         Fastify = fastify({
-            logger: true,
+            logger: {
+                level: 'trace'
+            },
         });
 
         Fastify
@@ -26,7 +28,7 @@ const buildServer = async () => {
 
         Fastify.printRoutes();
         await Fastify.listen(serverOptions);
-        Fastify.log.info(`server listening on http://${process.env.APP_HOST_IP}:${process.env.APP_PORT}`)
+        Fastify.log.trace(`server listening on http://${process.env.APP_HOST_IP}:${process.env.APP_PORT}`)
     } catch (error) {
         Fastify.log.error('erron starting the server %O', error);
     }
