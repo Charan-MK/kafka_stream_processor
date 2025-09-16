@@ -1,0 +1,39 @@
+# node-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+        - name: node-app
+          image: node-app
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_PORT
+              value: "3000"
+            - name: APP_HOST_IP
+              value: "kafka"  # Use Kafka service name, not 127.0.0.1
+            - name: KAFKA_BROKER
+              value: "kafka:9092"
+            - name: KAFKA_MAIN_TOPIC
+              value: "kafka_streamer_topic"
+            - name: DOTENV_CONFIG_QUIET
+              value: "true"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
